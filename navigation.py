@@ -47,7 +47,17 @@ while True:
         break
 
 print("Score: {}".format(score))
+env_info = env.reset(train_mode=True)[brain_name]
+import numpy as np
 
+import os
+
+from collections import deque
+import matplotlib.pyplot as plt
+
+import torch
+
+from dqn_agent import Agent
 
 from dqn_agent import Agent
 
@@ -107,6 +117,25 @@ scores = dqn(n_episodes=2000, max_t=1000, eps_start=1.0, eps_end=0.01, eps_decay
 print("\nTotal Training time = {:.1f} min".format((time.time() - start_time) / 60))
 
 
+# plot the scores
+fig = plt.figure(figsize=(8,8))
+ax = fig.add_subplot(111)
+plt.plot(np.arange(len(scores)), scores)
+plt.title('Score (Rewards)')
+plt.ylabel('Score')
+plt.xlabel('Episode #')
+plt.grid(True)
+
+plt.show(block=True)
+plt.interactive(False)
+
+'''
+# Train the agent using DQN
+start_time = time.time()  # Monitor Training Time
+scores = dqn(n_episodes=2000, max_t=1000, eps_start=1.0, eps_end=0.01, eps_decay=0.995)
+print("\nTotal Training time = {:.1f} min".format((time.time() - start_time) / 60))
+
+
 
 # plot the scores
 fig = plt.figure(figsize=(8,8))
@@ -119,5 +148,5 @@ plt.grid(True)
 plt.show(block=True)
 plt.interactive(False)
 
-
+'''
 env.close()
